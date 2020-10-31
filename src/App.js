@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import Header from "./Header/Header";
+import Search from "./Search/Search";
+import { useEffect } from "react";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    useEffect(() => {
+        fetchLocationData();
+    }, []);
+
+    const fetchLocationData = () => {
+        fetch(
+            "https://devru-latitude-longitude-find-v1.p.rapidapi.com/latlon.php?location=New%20York",
+            {
+                method: "GET",
+                headers: {
+                    "x-rapidapi-host":
+                        "devru-latitude-longitude-find-v1.p.rapidapi.com",
+                    "x-rapidapi-key":
+                        "PRKBJwiXc4msh406GkWw8lTpvzcxp1mqattjsnk9MkBvFmHwom",
+                },
+            }
+        )
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    return (
+        <div className="App">
+            <Header />
+            <Search />
+        </div>
+    );
 }
 
 export default App;

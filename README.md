@@ -47,3 +47,14 @@ You will be graded on
 - covering all edge cases (errors / invalid input etc.)
 - responsiveness
 - completion of all requirements of MVP
+
+
+
+### What API we want
+- location api
+- weather api
+
+
+
+# Credits
+- Photo by Dương Nhân from [Pexels](https://www.pexels.com/photo/grayscale-photography-of-trees-1529881/)
