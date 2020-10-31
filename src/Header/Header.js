@@ -1,7 +1,7 @@
 import React from "react";
 import "./Header.css";
 
-export default function Header() {
+export default function Header({children}) {
     return (
         <div className="header">
             <div className="header__content">
@@ -11,6 +11,8 @@ export default function Header() {
                         Vathavaran
                     </div>
                 </div>
+                <div className="header__occ-space"></div>
+                {children}
             </div>
         </div>
     );
