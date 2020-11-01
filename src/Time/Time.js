@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
+import './Time.css';
 
 export function Time({ timezone }) {
 
@@ -20,7 +21,7 @@ export function Time({ timezone }) {
 
 
 
-    return <div>
+    return <div className="current__time">
         { 
            time
         }

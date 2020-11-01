@@ -1,9 +1,9 @@
 .location {
-    width: 20rem;
+    width: clamp(300px, 20rem, 20rem);
     overflow: hidden;
     text-overflow: ellipsis;
     display: flex;
-    padding: 0.5rem;
+    padding: clamp(5px, 0.5rem, 0.5rem);
     box-sizing: border-box;
     flex-direction: column;
     align-items: flex-start;
@@ -17,7 +17,7 @@
 }
 
 .location__city {
-    font-size: 2.2rem;
+    font-size: clamp(18px, 1.6rem, 1.6rem);
     font-weight: 500;
     padding-right: 5px;
     text-transform: uppercase;
@@ -25,6 +25,6 @@
 
 .location__country {
     padding-left: 10px;
-    font-size: 2rem ;
+    font-size: clamp(16px, 1.2rem, 1.2rem);
 }
 

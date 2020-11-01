@@ -15,3 +15,103 @@
     align-items: center;
 }
 
+.container__content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: clamp(10px, 3rem, 3rem);
+    justify-content: space-evenly;
+    background: rgba(255, 255, 255, 0.1);
+    margin-left: clamp(10px, 2rem, 2rem);
+    margin-right: clamp(10px, 2rem, 2rem);
+    padding: 0.6rem;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.temp_main-card {
+    margin-right: clamp(10px, 2rem, 2rem);
+}
+
+.container__main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.container__other-params {
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    width: clamp(300px, 20rem, 20rem);
+    font-size: clamp(16px, 1.4rem, 1.4rem);
+    line-height: 2;
+}
+
+@media (max-width: 700px) {
+    .container__other-params {
+        margin-top: 20px;
+    }
+}
+
+
+.container__praram-item  {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.container__forecast {
+    display: flex;
+    margin-top: clamp(18px, 2rem, 2rem);
+    overflow-y: auto;
+    margin-left: clamp(18px, 2rem, 2rem);
+    margin-right: clamp(18px, 2rem, 2rem);
+}
+
+.forecast__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
+    background: #fff;
+    border-radius: 6px;
+    padding: clamp(3px, 0.3rem, 0.3rem);
+    font-size: clamp(14px, 1rem, 1rem);;
+    font-weight: 500;
+    margin: clamp(12px, 1rem, 1rem);
+    color: blue;
+}
+
+.forecast__date {
+    color: tomato;
+    width: clamp(60px, 4rem, 4rem);
+    text-align: center;
+}
+
+.forecasts__title {
+    margin-left: clamp(18px, 2rem, 2rem);
+    font-size: clamp(22px, 3rem, 3rem);
+    color: #bababa;
+}
+
+
+.shimmer {
+    height: 10rem;
+    width: 100%;
+    margin-bottom: 5px;
+    background: linear-gradient(90deg,#21252d 25%,#0c0f12 37%,#21252d 63%);
+    background-size: 400% 100%;
+    -webkit-animation: shimmer-loading 1.8s ease-in-out infinite;
+    animation: shimmer-loading 1.8s ease-in-out infinite;
+}
+
+@keyframes shimmer-loading{
+    0% {
+        background-position: 100% 50%;
+    }
+    to {
+        background-position: 0 50%;
+    }
+}
