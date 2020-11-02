@@ -5,7 +5,7 @@ export function getCurrentLocationDataFromUser(fn, defaultFn) {
   if (typeof fn !== "function") {
     throw new Error(`expected function instead gor ${typeof fn}`);
   }
-  if (typeof defaultFn !== 'function') {
+  if (typeof defaultFn !== "function") {
     throw new Error(`expected function instead gor ${typeof defaultFn}`);
   }
 
@@ -30,7 +30,7 @@ export async function getLocationFromIp() {
 }
 
 export async function getTodaysWeather(type, units, value) {
-  let results;
+  // let results;
   switch (type) {
     case "name":
       // results = await fetch(`${base_url}today?name`)
@@ -44,7 +44,7 @@ export async function getTodaysWeather(type, units, value) {
   }
 }
 
-export async function getCurrentWeather(lat = '', lon = '', zip = '', q = '') {
+export async function getCurrentWeather(lat = "", lon = "", zip = "", q = "") {
   const currentWeatherData = await fetch(
     `${base_url}location?q=${q}&zip=${zip}&lat=${lat}&lon=${lon}`
   )

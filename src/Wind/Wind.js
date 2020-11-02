@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import './Wind.css';
 
 export function Wind({ speed, deg }) {

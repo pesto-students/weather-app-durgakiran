@@ -17,7 +17,7 @@ export function WeatherDetails({ humidity, wind, pressure, rain }) {
       </div>
       <div className="container__praram-item">
         <span>Rain: </span>
-        <span>{rain ? rain['3h'] || rain['1h'] + ' ' + 'mm' : 'No Rain'}</span>
+        <span>{rain ? rain["3h"] || rain["1h"] + " mm" : "No Rain"}</span>
       </div>
     </>
   );
