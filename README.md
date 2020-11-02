@@ -1,3 +1,7 @@
+# URL
+- https://musing-mccarthy-612466.netlify.app
+- https://durgakiran.dev
+
 # Weather App
 
 A tech company is planing to launch a responsive 'Weather-App'. You have been awarded a chance to present your (working) design using React Js to meet the requirements mentioned in the MVP below.
