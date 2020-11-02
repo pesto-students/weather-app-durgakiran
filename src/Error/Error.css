@@ -1,0 +1,5 @@
+.error {
+    color: tomato;
+    font-size: clamp(16px, 1.4rem, 1.4rem);
+    height: clamp(300px, 10rem, 10rem);;  
+}

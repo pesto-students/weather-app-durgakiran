@@ -29,47 +29,46 @@ export async function getLocationFromIp() {
   return locationObj;
 }
 
-export async function getTodaysWeather(type, units, value) {
-  // let results;
-  switch (type) {
-    case "name":
-      // results = await fetch(`${base_url}today?name`)
-      break;
 
-    case "zip":
-      break;
+export async function getCurrentWeather(lat = "", lon = "", zip = "", q = "") {
+  try {
+    const currentWeatherData = await fetch(
+      `${base_url}location?q=${q}&zip=${zip}&lat=${lat}&lon=${lon}`
+    )
+      .then((data) => data.json())
+      .catch((data) => data.json());
+    return currentWeatherData;
 
-    default:
-      break;
+  } catch {
+    return { message: 'Failed to fetch data' }
   }
 }
 
-export async function getCurrentWeather(lat = "", lon = "", zip = "", q = "") {
-  const currentWeatherData = await fetch(
-    `${base_url}location?q=${q}&zip=${zip}&lat=${lat}&lon=${lon}`
-  )
-    .then((data) => data.json())
-    .catch((data) => data.json());
-  return currentWeatherData;
-}
-
 export async function getWeatherDataByLatLon(lat, lon) {
-  const weatherByLatLon = await fetch(
-    `${base_url}forecast30?lat=${lat}&lon=${lon}`
-  )
-    .then((data) => data.json())
-    .catch((data) => data.json());
-
-  return weatherByLatLon;
+  try {
+    const weatherByLatLon = await fetch(
+      `${base_url}forecast30?lat=${lat}&lon=${lon}`
+    )
+      .then((data) => data.json())
+      .catch((data) => data.json());
+  
+    return weatherByLatLon;
+  } catch {
+    return { message: 'Failed to fetch data' }
+  }
   // return hardCodedWeatherJSON;
 }
 
 export async function getCurrentWeatherData(name, zip, lat, lon) {
-  const weatherByLatLon = await fetch(
-    `${base_url}currentweather?q=${name}&zip=${zip}&lat=${lat}&lon=${lon}`
-  )
-    .then((data) => data.json())
-    .catch((data) => data.json());
-
-  return weatherByLatLon;
+  try {
+    const weatherByLatLon = await fetch(
+      `${base_url}currentweather?q=${name}&zip=${zip}&lat=${lat}&lon=${lon}`
+    )
+      .then((data) => data.json())
+      .catch((data) => data.json());
+  
+    return weatherByLatLon;
+  } catch {
+    return { message: 'Failed to fetch data' }
+  }
 }
