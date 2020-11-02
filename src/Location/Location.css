@@ -1,0 +1,30 @@
+.location {
+    width: clamp(300px, 20rem, 20rem);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    padding: clamp(5px, 0.5rem, 0.5rem);
+    box-sizing: border-box;
+    flex-direction: column;
+    align-items: flex-start;
+    color: #ffffff;
+}
+
+.location__container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.location__city {
+    font-size: clamp(18px, 1.6rem, 1.6rem);
+    font-weight: 500;
+    padding-right: 5px;
+    text-transform: uppercase;
+}
+
+.location__country {
+    padding-left: 10px;
+    font-size: clamp(16px, 1.2rem, 1.2rem);
+}
+

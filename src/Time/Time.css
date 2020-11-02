@@ -1,0 +1,4 @@
+.current__time {
+    color: tomato;
+    font-size: clamp(16px, 1rem, 1rem);
+}
