@@ -1,15 +1,18 @@
 const base_url =
-  "http://localhost:5001/weather-app-9d078/us-central1/searchLocation/";
+  "https://us-central1-weather-app-9d078.cloudfunctions.net/searchLocation/";
 
-export function getCurrentLocationDataFromUser(fn) {
+export function getCurrentLocationDataFromUser(fn, defaultFn) {
   if (typeof fn !== "function") {
     throw new Error(`expected function instead gor ${typeof fn}`);
+  }
+  if (typeof defaultFn !== 'function') {
+    throw new Error(`expected function instead gor ${typeof defaultFn}`);
   }
 
   return navigator.geolocation.getCurrentPosition(
     (data) => fn(data),
     (error) => {
-      console.log("error", error);
+      defaultFn();
     }
   );
 }

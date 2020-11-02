@@ -29,10 +29,16 @@ class Container extends Component {
   }
 
   componentDidMount() {
-    getCurrentLocationDataFromUser(this.setUsersCurrentLocation.bind(this));
+    getCurrentLocationDataFromUser(
+      this.setUsersCurrentLocation.bind(this),
+      this.setUsersCurrentLocation.bind(this, ...[
+        { coords: { latitude: 28.38, longitude: 77.12 } },
+      ])
+    );
   }
 
   async setUsersCurrentLocation(data) {
+    console.log(data);
     this.setState((prevState) => {
       return {
         ...prevState,
