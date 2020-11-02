@@ -13,6 +13,7 @@ import { Time } from "../Time/Time";
 import { CurrentTemp } from "../CurrentTemp/CurrentTemp";
 import { WeatherDetails } from "../WeatherDetails/WeatherDetails";
 import { DateStringShort } from "../DateStringShort/Date";
+import { Error } from "../Error/Error";
 
 class Container extends Component {
   constructor() {
@@ -25,6 +26,8 @@ class Container extends Component {
       todayWeather: null,
       forecasts: [],
       searchResults: [],
+      weatherDataErrorMessage: "",
+      forecastDataErrorMessage: "",
     };
   }
 
@@ -39,7 +42,6 @@ class Container extends Component {
   }
 
   async setUsersCurrentLocation(data) {
-    console.log(data);
     this.setState((prevState) => {
       return {
         ...prevState,
@@ -51,6 +53,13 @@ class Container extends Component {
       data && data.coords.longitude
     );
 
+    if (Number(weatherData.cod) !== 200 || !weatherData) {
+      this.setWeatherErrorMessage(
+        weatherData.message || "Something went wrong"
+      );
+      return;
+    }
+
     const currentWeatherData = await getCurrentWeather(
       data && data.coords.latitude,
       data && data.coords.longitude,
@@ -58,7 +67,34 @@ class Container extends Component {
       undefined
     );
 
+    if (Number(currentWeatherData.cod) !== 200 || !currentWeatherData) {
+      this.setForecastDataErrorMessage(
+        currentWeatherData.message || "Something went wrong"
+      );
+      return;
+    }
+
     this.setWeatherData(weatherData, currentWeatherData.list[0]);
+  }
+
+  setWeatherErrorMessage(message) {
+    this.setState((prevState) => {
+      return {
+        ...prevState,
+        weatherDataErrorMessage: message,
+        loading: false,
+      };
+    });
+  }
+
+  setForecastDataErrorMessage(message) {
+    this.setState((prevState) => {
+      return {
+        ...prevState,
+        forecastDataErrorMessage: message,
+        loading: false,
+      };
+    });
   }
 
   async searchForEnteredLocation(value) {
@@ -70,8 +106,6 @@ class Container extends Component {
         Number(value),
         undefined
       );
-
-      console.log(searchResults);
     } else {
       searchResults = await getCurrentWeather(
         undefined,
@@ -79,8 +113,6 @@ class Container extends Component {
         undefined,
         value
       );
-
-      console.log(searchResults);
     }
     this.setState((prevState) => {
       return {
@@ -91,7 +123,6 @@ class Container extends Component {
   }
 
   setWeatherData(foreCastData, currentData) {
-    console.log(currentData);
     this.setState((prevState) => {
       return {
         ...prevState,
@@ -105,6 +136,8 @@ class Container extends Component {
         forecasts: foreCastData.list,
         searchResults: [],
         loading: false,
+        weatherDataErrorMessage: '',
+        forecastDataErrorMessage: ''
       };
     });
   }
@@ -132,7 +165,7 @@ class Container extends Component {
         <div className="container__content">
           {this.state.loading ? (
             <div className="shimmer"></div>
-          ) : (
+          ) : !this.state.weatherDataErrorMessage ? (
             <>
               <div className="container__main-content">
                 <div className="container__location-data">
@@ -170,29 +203,35 @@ class Container extends Component {
                 />
               </div>
             </>
+          ) : (
+            <Error message={this.state.weatherDataErrorMessage} />
           )}
         </div>
 
         <h3 className="forecasts__title">Hourly forecasts for next 5 days: </h3>
         <div className="container__forecast">
-          {this.state.forecasts.map((value, index) => {
-            return (
-              <div className="forecast__card" key={index}>
-                <div className="forecast__date">
-                  <DateStringShort date={value.dt_txt} />
+          {this.state.forecastDataErrorMessage ? (
+            <Error message={this.state.forecastDataErrorMessage} />
+          ) : (
+            this.state.forecasts.map((value, index) => {
+              return (
+                <div className="forecast__card" key={index}>
+                  <div className="forecast__date">
+                    <DateStringShort date={value.dt_txt} />
+                  </div>
+                  <div>
+                    <img
+                      src={`https://openweathermap.org/img/wn/${value.weather[0].icon}.png`}
+                      alt="weather icon"
+                    />
+                  </div>
+                  <div>
+                    {Math.round(value.main.temp)} <sup>o</sup> C
+                  </div>
                 </div>
-                <div>
-                  <img
-                    src={`https://openweathermap.org/img/wn/${value.weather[0].icon}.png`}
-                    alt="weather icon"
-                  />
-                </div>
-                <div>
-                  {Math.round(value.main.temp)} <sup>o</sup> C
-                </div>
-              </div>
-            );
-          })}
+              );
+            })
+          )}
         </div>
       </div>
     );

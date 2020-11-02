@@ -51,7 +51,8 @@ input:focus {
 }
 
 .search__results > div {
-    padding: 1rem;
+    padding: clamp(14px, 1rem, 1rem);
+    font-size: clamp(18px, 1rem, 1rem);;
     box-sizing: border-box;
 }
 .search__results > div:hover {

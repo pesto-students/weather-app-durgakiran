@@ -98,7 +98,7 @@
 
 
 .shimmer {
-    height: 10rem;
+    height: clamp(300px, 10rem, 10rem);
     width: 100%;
     margin-bottom: 5px;
     background: linear-gradient(90deg,#21252d 25%,#0c0f12 37%,#21252d 63%);
