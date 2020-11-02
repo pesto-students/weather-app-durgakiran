@@ -12,8 +12,16 @@
 
 
 .temp__units {
-    font-size: clamp(56px, 5rem, 5rem);
+    font-size: clamp(32px, 3rem, 3rem);
     padding-left: clamp(5px, 0.5rem, 0.5rem);
+    color: #000000;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.scale__active {
+    font-size: clamp(56px, 5rem, 5rem);
+    color: #ffffff;
 }
 
 .weather__info {
