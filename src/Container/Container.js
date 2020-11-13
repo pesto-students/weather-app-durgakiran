@@ -14,6 +14,7 @@ import { CurrentTemp } from "../CurrentTemp/CurrentTemp";
 import { WeatherDetails } from "../WeatherDetails/WeatherDetails";
 import { DateStringShort } from "../DateStringShort/Date";
 import { Error } from "../Error/Error";
+import Forecast from "../Forecast/Forecast";
 
 class Container extends Component {
   constructor() {
@@ -208,31 +209,9 @@ class Container extends Component {
           )}
         </div>
 
-        <h3 className="forecasts__title">Hourly forecasts for next 5 days: </h3>
-        <div className="container__forecast">
-          {this.state.forecastDataErrorMessage ? (
-            <Error message={this.state.forecastDataErrorMessage} />
-          ) : (
-            this.state.forecasts.map((value, index) => {
-              return (
-                <div className="forecast__card" key={index}>
-                  <div className="forecast__date">
-                    <DateStringShort date={value.dt_txt} />
-                  </div>
-                  <div>
-                    <img
-                      src={`https://openweathermap.org/img/wn/${value.weather[0].icon}.png`}
-                      alt="weather icon"
-                    />
-                  </div>
-                  <div>
-                    {Math.round(value.main.temp)} <sup>o</sup> C
-                  </div>
-                </div>
-              );
-            })
-          )}
-        </div>
+        <Forecast 
+            error={this.state.forecastDataErrorMessage} 
+            forecasts={this.state.forecasts}/>
       </div>
     );
   }

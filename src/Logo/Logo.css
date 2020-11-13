@@ -1,0 +1,13 @@
+.logo {
+    position: fixed;
+    top: 0;
+    color: #ffffff;
+    font-size: clamp(32px, 2rem, 2rem);
+    display: flex;
+    padding: 20px;
+    left: 0;
+}
+
+.logo img {
+    height: clamp(32px, 2rem, 2rem);
+}

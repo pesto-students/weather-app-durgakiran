@@ -13,7 +13,7 @@ export function WeatherDetails({ humidity, wind, pressure, rain }) {
       </div>
       <div className="container__praram-item">
         <span>Pressure: </span>
-        <span>{pressure}hPa</span>
+        <span>{pressure} hPa</span>
       </div>
       <div className="container__praram-item">
         <span>Rain: </span>
