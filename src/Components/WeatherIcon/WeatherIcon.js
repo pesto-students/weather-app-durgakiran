@@ -1,3 +1,5 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import cloud from './cloud.svg';
 import drizzle from './drizzle.svg';
 import haze from './haze.svg';
@@ -7,9 +9,7 @@ import snow from './snow.svg';
 import sunny from './sunny.svg';
 import thunderstorm from './thunderstorm.svg';
 
-
-
-export function WeatherIcon({ type }) {
+export default function WeatherIcon({ type }) {
   let image = '';
 
   switch (type) {
@@ -45,7 +45,11 @@ export function WeatherIcon({ type }) {
 
   return (
     <>
-        <img src={image} alt='weather' width="100%" height="100%"/>
+      <img src={image} alt="weather" width="100%" height="100%" />
     </>
   );
 }
+
+WeatherIcon.propTypes = {
+  type: PropTypes.string.isRequired,
+};
