@@ -141,7 +141,6 @@ class Container extends Component {
       timezone,
       todayWeather,
       forecasts,
-      searchResults,
       weatherDataErrorMessage,
       forecastDataErrorMessage,
     } = this.state;
@@ -150,12 +149,10 @@ class Container extends Component {
         <div className="container__fix-components">
           <Header>
             <Search
-              onChange={(value) => this.searchForEnteredLocation(value)}
-              results={searchResults}
-              onClick={(data) => this.setUsersCurrentLocation({
+              handleSearchInput={(lat, lon) => this.setUsersCurrentLocation({
                 coords: {
-                  latitude: data.coord.lat,
-                  longitude: data.coord.lon,
+                  latitude: lat,
+                  longitude: lon,
                 },
               })}
             />

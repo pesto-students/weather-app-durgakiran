@@ -18,5 +18,6 @@ export default function Location({ city, country, children }) {
 Location.propTypes = {
   city: PropTypes.string.isRequired,
   country: PropTypes.string.isRequired,
-  children: PropTypes.func.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  children: PropTypes.object.isRequired,
 };

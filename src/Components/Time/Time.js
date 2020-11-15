@@ -25,5 +25,5 @@ export default function Time({ timezone }) {
 }
 
 Time.propTypes = {
-  timezone: PropTypes.string.isRequired,
+  timezone: PropTypes.number.isRequired,
 };

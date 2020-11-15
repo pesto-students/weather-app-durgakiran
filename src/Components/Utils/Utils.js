@@ -1,4 +1,5 @@
 const baseUrl = 'https://us-central1-weather-app-9d078.cloudfunctions.net/searchLocation/';
+// https://run.mocky.io/v3/ce74aaa8-b9d9-4c83-9b2c-7bbbfe3ebbc2
 
 export function getCurrentLocationDataFromUser(fn, defaultFn) {
   if (typeof fn !== 'function') {
@@ -68,4 +69,13 @@ export async function getCurrentWeatherData(name, zip, lat, lon) {
   } catch {
     return { message: 'Failed to fetch data' };
   }
+}
+
+export function getAutoSuggestions() {
+  return async () => {
+    const results = await fetch('https://run.mocky.io/v3/ce74aaa8-b9d9-4c83-9b2c-7bbbfe3ebbc2')
+      .then((res) => res.json())
+      .catch((res) => res.json());
+    return results;
+  };
 }

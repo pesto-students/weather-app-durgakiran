@@ -29,7 +29,12 @@ input:focus {
     position: relative;
 }
 
-.search__box > img{
+@media (min-width: 960px) {
+    .search__box {
+        width: 450px;
+    }
+}
+.search__box img{
     position: absolute;
     left: 0.5rem;
     cursor: pointer;
@@ -48,11 +53,14 @@ input:focus {
     left: 0;
     right: 0;
     box-sizing: border-box;
+    height: 400px;
+    overflow-y: auto;
+    letter-spacing: 1.1;
 }
 
 .search__results > div {
     padding: clamp(14px, 1rem, 1rem);
-    font-size: clamp(18px, 1rem, 1rem);;
+    font-size: clamp(16px, 1rem, 1rem);;
     box-sizing: border-box;
 }
 .search__results > div:hover {
@@ -60,3 +68,8 @@ input:focus {
     cursor: pointer;
 }
 
+.tomato {
+    color: tomato;
+    font-size: 1rem;
+    padding: 5px;
+}

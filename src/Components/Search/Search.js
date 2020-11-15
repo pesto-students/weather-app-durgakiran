@@ -1,48 +1,73 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
-/* eslint-disable react/forbid-prop-types */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './Search.css';
 import searchIcon from './searchIcon.svg';
+import SearchSuggestions from '../searchSuggestions/SearchSuggestions';
 
-export default function Search({ onChange, results, onClick }) {
+export default function Search({ handleSearchInput }) {
   const [inputValue, setInputValue] = useState('');
+  const [isShowSuggestions, setIsShowSuggestions] = useState(false);
+  let timerId;
+
+  const handleInputValue = (value) => {
+    if (timerId) {
+      clearTimeout(timerId);
+    }
+    setIsShowSuggestions(true);
+    timerId = setTimeout(() => {
+      setInputValue(value);
+    }, 1000);
+
+    return () => {
+      if (timerId) {
+        clearTimeout(timerId);
+      }
+    };
+  };
+
+  const handleSuggestionsClick = (value) => {
+    if (value.lat && value.lon) {
+      setIsShowSuggestions(false);
+      handleSearchInput(value.lat, value.lon);
+    }
+  };
 
   return (
-    <div className="search">
+    <div
+      className="search"
+      onClick={() => console.log('should activate input box')}
+      onBlur={() => console.log('should close suggestions')}
+      tabIndex="0"
+      role="listbox"
+      onKeyPress={(event) => console.log(event)}
+    >
       <div className="search__box">
         <img
           src={searchIcon}
           alt="search icon"
-          onKeyDown={() => onChange()}
-          onClick={() => onChange(inputValue)}
-          role="button"
-          tabIndex="0"
         />
         <input
           type="search"
           name="search"
-          onChange={({ target: { value } }) => setInputValue(value)}
+          onChange={({ target: { value } }) => handleInputValue(value)}
           placeholder="Search city or pincode..."
-          onKeyUp={({ key }) => ((key === 'Enter') ? onChange(inputValue) : '')}
+          onKeyUp={({ key }) => ((key === 'Enter') ? handleInputValue(inputValue) : '')}
+          onBlur={() => console.log('blurred')}
         />
       </div>
-      {results && results.length ? (
-        <div className="search__results">
-          {results
-            && results.map((value) => (
-              <div tabIndex="0" role="button" onKeyPress={() => onClick()} key={value.name} onClick={() => onClick(value)}>
-                {`${value.name}, ${value.sys.country}`}
-              </div>
-            ))}
-        </div>
-      ) : null}
+      {
+        isShowSuggestions
+          ? (
+            <SearchSuggestions
+              inputValue={inputValue}
+              handleSuggestionClick={(val) => handleSuggestionsClick(val)}
+            />
+          ) : null
+      }
     </div>
   );
 }
 
 Search.propTypes = {
-  onChange: PropTypes.func.isRequired,
-  onClick: PropTypes.func.isRequired,
-  results: PropTypes.object.isRequired,
+  handleSearchInput: PropTypes.func.isRequired,
 };
