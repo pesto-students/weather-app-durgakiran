@@ -5,7 +5,7 @@ import Logo from './Components/Logo/Logo';
 
 function App() {
   return (
-    <div className="App">
+    <div data-test-id="App" className="App">
       <Logo />
       <Container />
     </div>

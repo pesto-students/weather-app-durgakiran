@@ -14,7 +14,6 @@ export default function useAsync(fn, params) {
   }
 
   useEffect(() => {
-    console.log(fn);
     setLoading(true);
     fn(...params).then((res) => {
       setResult(res);

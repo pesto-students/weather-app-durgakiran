@@ -11,15 +11,17 @@ export default function SearchSuggestions({ inputValue, handleSuggestionClick })
 
   useEffect(() => {
     setLoading(true);
-    getAutoSuggestions()()
-      .then((res) => {
-        setResults(res);
-      })
-      .catch((res) => {
-        setError(res.message);
-      }).finally(() => {
-        setLoading(false);
-      });
+    if (inputValue.length > 3) {
+      getAutoSuggestions()(inputValue)
+        .then((res) => {
+          setResults(res);
+        })
+        .catch((res) => {
+          setError(res.message);
+        }).finally(() => {
+          setLoading(false);
+        });
+    }
   }, [inputValue]);
 
   return (

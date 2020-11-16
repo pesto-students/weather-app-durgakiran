@@ -25,7 +25,6 @@ export async function getLocationFromIp() {
     .then((data) => data.json())
     .catch((data) => data.json());
 
-  console.log(locationObj);
   return locationObj;
 }
 
@@ -72,8 +71,8 @@ export async function getCurrentWeatherData(name, zip, lat, lon) {
 }
 
 export function getAutoSuggestions() {
-  return async () => {
-    const results = await fetch('https://run.mocky.io/v3/ce74aaa8-b9d9-4c83-9b2c-7bbbfe3ebbc2')
+  return async (query) => {
+    const results = await fetch(`${baseUrl}autoSuggest?q=${query}`)
       .then((res) => res.json())
       .catch((res) => res.json());
     return results;

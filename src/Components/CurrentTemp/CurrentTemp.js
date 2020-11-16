@@ -27,6 +27,7 @@ export default function CurrentTemp({ temp, iconType }) {
         <div className="weather__icon">
           <WeatherIcon type={iconType && iconType.toLowerCase()} />
         </div>
+        <span className="weather-condition">{iconType}</span>
       </div>
       <div className="temp__info">
         <div className="temp__value">
@@ -36,7 +37,7 @@ export default function CurrentTemp({ temp, iconType }) {
         <div
           role="button"
           tabIndex="0"
-          onKeyPress={() => console.log()}
+          onKeyPress={({ key }) => ((key === 'Enter') ? handleTemp('c') : () => null)}
           onClick={() => {
             handleTemp('c');
           }}
@@ -49,7 +50,7 @@ export default function CurrentTemp({ temp, iconType }) {
         <div
           role="button"
           tabIndex="0"
-          onKeyPress={() => console.log()}
+          onKeyPress={({ key }) => ((key === 'Enter') ? handleTemp('f') : () => null)}
           onClick={() => {
             handleTemp('f');
           }}
@@ -64,7 +65,12 @@ export default function CurrentTemp({ temp, iconType }) {
   );
 }
 
+CurrentTemp.defaultProps = {
+  temp: null,
+  iconType: null,
+};
+
 CurrentTemp.propTypes = {
-  temp: PropTypes.func.isRequired,
-  iconType: PropTypes.string.isRequired,
+  temp: PropTypes.number,
+  iconType: PropTypes.string,
 };

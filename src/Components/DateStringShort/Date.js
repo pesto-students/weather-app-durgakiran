@@ -32,10 +32,12 @@ export default function DateStringShort({ date }) {
         }${
           MONTH_STRINGS[new Date(date).getMonth()]}`}
       </span>
+      <br />
+      <span>{`${(new Date(date).getHours() > 12 ? (new Date(date).getHours() - 12) : new Date(date).getHours())} ${new Date(date).getHours() > 12 ? 'PM' : 'AM'}`}</span>
     </>
   );
 }
 
 DateStringShort.propTypes = {
-  date: PropTypes.func.isRequired,
+  date: PropTypes.string.isRequired,
 };

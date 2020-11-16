@@ -9,4 +9,11 @@
   background-size: cover;
   box-sizing: border-box;
   padding: 5rem;
+  padding-bottom: 2rem;
+}
+
+@media  (max-width: 960px) {
+  .App {
+    padding-top: 60px;
+  }
 }

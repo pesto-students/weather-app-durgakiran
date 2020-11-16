@@ -36,9 +36,16 @@ export default function WeatherDetails({
   );
 }
 
+WeatherDetails.defaultProps = {
+  humidity: null,
+  wind: null,
+  pressure: null,
+  rain: null,
+};
+
 WeatherDetails.propTypes = {
-  humidity: PropTypes.string.isRequired,
-  wind: PropTypes.object.isRequired,
-  pressure: PropTypes.string.isRequired,
-  rain: PropTypes.string.isRequired,
+  humidity: PropTypes.number,
+  wind: PropTypes.object,
+  pressure: PropTypes.number,
+  rain: PropTypes.string,
 };

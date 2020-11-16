@@ -2,7 +2,7 @@
     color: #ffffff;
     display: flex;
     flex-direction: row;
-    align-items: flex-end;
+    align-items: center;
 }
 
 .temp__value {
@@ -43,3 +43,8 @@
     align-items: flex-end;
 }
 
+.weather-condition {
+    color: #bababa;
+    margin: 5px;
+    font-size: clamp(16px, 1rem, 1rem);
+}

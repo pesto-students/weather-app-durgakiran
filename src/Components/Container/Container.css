@@ -20,7 +20,7 @@
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
-    margin-top: clamp(10px, 3rem, 3rem);
+    margin-top: clamp(10px, 2rem, 2rem);
     justify-content: space-evenly;
     background: rgba(255, 255, 255, 0.1);
     margin-left: clamp(10px, 2rem, 2rem);
@@ -64,29 +64,33 @@
 }
 
 .container__forecast {
-    display: flex;
     margin-top: clamp(18px, 1.4rem, 1.4rem);
-    overflow-y: auto;
     margin-left: clamp(18px, 2rem, 2rem);
     margin-right: clamp(18px, 2rem, 2rem);
+}
+
+.forecasts {
+    display: flex;
+    overflow-y: auto;
+    margin-top: 10px;
 }
 
 .forecast__card {
     display: flex;
     flex-direction: column;
     align-items: center;    
-    background: #fff;
+    background: rgba(255, 255, 255, 0.2);
     border-radius: 6px;
     padding: clamp(3px, 0.3rem, 0.3rem);
-    font-size: clamp(14px, 1rem, 1rem);;
+    font-size: clamp(14px, 0.6rem, 0.6rem);;
     font-weight: 500;
     margin: clamp(12px, 1rem, 1rem);
-    color: blue;
+    color: #fff;
 }
 
 .forecast__date {
     color: tomato;
-    width: clamp(60px, 4rem, 4rem);
+    width: clamp(60px, 3rem, 3rem);
     text-align: center;
 }
 

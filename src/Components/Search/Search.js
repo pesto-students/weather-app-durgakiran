@@ -15,8 +15,10 @@ export default function Search({ handleSearchInput }) {
     }
     setIsShowSuggestions(true);
     timerId = setTimeout(() => {
-      setInputValue(value);
-    }, 1000);
+      if (value) {
+        setInputValue(value);
+      }
+    }, 2000);
 
     return () => {
       if (timerId) {
@@ -33,14 +35,7 @@ export default function Search({ handleSearchInput }) {
   };
 
   return (
-    <div
-      className="search"
-      onClick={() => console.log('should activate input box')}
-      onBlur={() => console.log('should close suggestions')}
-      tabIndex="0"
-      role="listbox"
-      onKeyPress={(event) => console.log(event)}
-    >
+    <div className="search">
       <div className="search__box">
         <img
           src={searchIcon}
@@ -52,7 +47,7 @@ export default function Search({ handleSearchInput }) {
           onChange={({ target: { value } }) => handleInputValue(value)}
           placeholder="Search city or pincode..."
           onKeyUp={({ key }) => ((key === 'Enter') ? handleInputValue(inputValue) : '')}
-          onBlur={() => console.log('blurred')}
+          autoComplete="off"
         />
       </div>
       {
