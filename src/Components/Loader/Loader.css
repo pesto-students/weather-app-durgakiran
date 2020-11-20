@@ -1,0 +1,9 @@
+.loader {
+    height: clamp(300px, 10rem, 10rem);
+    width: 100%;
+    margin-bottom: 5px;
+    background: linear-gradient(90deg,#21252d 25%,#0c0f12 37%,#21252d 63%);
+    background-size: 400% 100%;
+    -webkit-animation: shimmer-loading 1.8s ease-in-out infinite;
+    animation: shimmer-loading 1.8s ease-in-out infinite;
+}

@@ -9,12 +9,11 @@ import {
   getCurrentWeather,
   getWeatherDataByLatLon,
 } from '../Utils/Utils';
-import Location from '../Location/Location';
-import Time from '../Time/Time';
-import CurrentTemp from '../CurrentTemp/CurrentTemp';
 import WeatherDetails from '../WeatherDetails/WeatherDetails';
 import Error from '../Error/Error';
 import Forecast from '../Forecast/Forecast';
+import Weather from '../Weather/Weather';
+import Loader from '../Loader/Loader';
 
 class Container extends Component {
   constructor() {
@@ -161,29 +160,16 @@ class Container extends Component {
 
         <div className="container__content">
           {loading ? (
-            <div className="shimmer" />
+            <Loader />
           ) : !weatherDataErrorMessage ? (
             <>
-              <div className="container__main-content">
-                <div className="container__location-data">
-                  <Location city={city} country={country}>
-                    <Time timezone={timezone} />
-                  </Location>
-                </div>
-
-                <div className="temp_main-card">
-                  <CurrentTemp
-                    iconType={
-                      todayWeather
-                      && todayWeather.weather[0].main
-                    }
-                    temp={
-                      todayWeather
-                      && todayWeather.main.temp
-                    }
-                  />
-                </div>
-              </div>
+              <Weather
+                city={city}
+                country={country}
+                timezone={timezone}
+                iconType={todayWeather && todayWeather.weather[0].main}
+                temp={todayWeather && todayWeather.main.temp}
+              />
 
               <div className="container__other-params">
                 <WeatherDetails
