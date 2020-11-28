@@ -1,6 +1,6 @@
 # URL
 - https://musing-mccarthy-612466.netlify.app
-- https://durgakiran.dev
+- https://weather-app.durgakiran.dev
 
 # Weather App
 
