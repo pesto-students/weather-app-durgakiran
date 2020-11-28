@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import React, { Component } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import Header from '../Header/Header';
-import Search from '../Search/Search';
 import './Container.css';
 
 import {
@@ -14,6 +14,7 @@ import Error from '../Error/Error';
 import Forecast from '../Forecast/Forecast';
 import Weather from '../Weather/Weather';
 import Loader from '../Loader/Loader';
+import AutoComplete from '../AutoComplete/AutoComplete';
 
 class Container extends Component {
   constructor() {
@@ -145,56 +146,59 @@ class Container extends Component {
     } = this.state;
     return (
       <div className="container">
-        <div className="container__fix-components">
-          <Header>
-            <Search
-              handleSearchInput={(lat, lon) => this.setUsersCurrentLocation({
-                coords: {
-                  latitude: lat,
-                  longitude: lon,
-                },
-              })}
-            />
-          </Header>
-        </div>
-
-        <div className="container__content">
-          {loading ? (
-            <Loader />
-          ) : !weatherDataErrorMessage ? (
-            <>
-              <Weather
-                city={city}
-                country={country}
-                timezone={timezone}
-                iconType={todayWeather && todayWeather.weather[0].main}
-                temp={todayWeather && todayWeather.main.temp}
+        <Router>
+          <div className="container__fix-components">
+            <Header>
+              <AutoComplete
+                handleSearchInput={(lat, lon) => this.setUsersCurrentLocation({
+                  coords: {
+                    latitude: lat,
+                    longitude: lon,
+                  },
+                })}
               />
+            </Header>
+          </div>
 
-              <div className="container__other-params">
-                <WeatherDetails
-                  humidity={
+          <div className="container__content">
+            {loading ? (
+              <Loader />
+            ) : !weatherDataErrorMessage ? (
+              <>
+                <Weather
+                  city={city}
+                  country={country}
+                  timezone={timezone}
+                  iconType={todayWeather && todayWeather.weather[0].main}
+                  temp={todayWeather && todayWeather.main.temp}
+                />
+
+                <div className="container__other-params">
+                  <WeatherDetails
+                    humidity={
                     todayWeather
                     && todayWeather.main.humidity
                   }
-                  pressure={
+                    pressure={
                     todayWeather
                     && todayWeather.main.pressure
                   }
-                  rain={todayWeather && todayWeather.rain}
-                  wind={todayWeather && todayWeather.wind}
-                />
-              </div>
-            </>
-          ) : (
-            <Error message={weatherDataErrorMessage} />
-          )}
-        </div>
+                    rain={todayWeather && todayWeather.rain}
+                    wind={todayWeather && todayWeather.wind}
+                  />
+                </div>
+              </>
+            ) : (
+              <Error message={weatherDataErrorMessage} />
+            )}
+          </div>
 
-        <Forecast
-          error={forecastDataErrorMessage}
-          forecasts={forecasts}
-        />
+          <Forecast
+            error={forecastDataErrorMessage}
+            forecasts={forecasts}
+          />
+
+        </Router>
       </div>
     );
   }

@@ -52,18 +52,32 @@ input:focus {
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
     left: 0;
     right: 0;
+    top: 100%;
     box-sizing: border-box;
     height: 400px;
     overflow-y: auto;
     letter-spacing: 1.1;
 }
 
-.search__results > div {
-    padding: clamp(14px, 1rem, 1rem);
-    font-size: clamp(16px, 1rem, 1rem);;
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+ul li {
     box-sizing: border-box;
 }
-.search__results > div:hover {
+
+a {
+    display: block;
+    font-size: clamp(16px, 1rem, 1rem);
+    padding: clamp(14px, 1rem, 1rem);
+    text-decoration: none;
+    color: #ffffff;
+}
+
+a:hover {
     background-color: rgba(255,255,255,0.12);
     cursor: pointer;
 }

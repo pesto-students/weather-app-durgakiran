@@ -59,7 +59,7 @@ export async function getWeatherDataByLatLon(lat, lon) {
 export async function getCurrentWeatherData(name, zip, lat, lon) {
   try {
     const weatherByLatLon = await fetch(
-      `${baseUrl}currentweather?q=${name}&zip=${zip}&lat=${lat}&lon=${lon}`,
+      `${baseUrl}currentWeather?lat=${lat}&lon=${lon}`,
     )
       .then((data) => data.json())
       .catch((data) => data.json());
