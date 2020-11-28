@@ -1,207 +1,56 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable class-methods-use-this */
 /* eslint-disable no-nested-ternary */
-import React, { Component } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+/* eslint-disable react/prop-types */
+import React, { useEffect } from 'react';
+import {
+  BrowserRouter as Router,
+  Redirect,
+} from 'react-router-dom';
 import Header from '../Header/Header';
 import './Container.css';
 
-import {
-  getCurrentLocationDataFromUser,
-  getCurrentWeather,
-  getWeatherDataByLatLon,
-} from '../Utils/Utils';
-import WeatherDetails from '../WeatherDetails/WeatherDetails';
-import Error from '../Error/Error';
-import Forecast from '../Forecast/Forecast';
-import Weather from '../Weather/Weather';
-import Loader from '../Loader/Loader';
+import { getCurrentLocationDataFromUser } from '../Utils/Utils';
 import AutoComplete from '../AutoComplete/AutoComplete';
+import WeatherContainer from '../WeatherContainer/WeatherContainer';
+import ForecastContainer from '../ForecastContainer/ForeCastContainer';
 
-class Container extends Component {
-  constructor() {
-    super();
-    this.state = {
-      loading: false,
-      city: '',
-      country: '',
-      timezone: 0,
-      todayWeather: null,
-      forecasts: [],
-      searchResults: [],
-      weatherDataErrorMessage: '',
-      forecastDataErrorMessage: '',
-    };
-  }
+export default function Container() {
+  // const [lat, setLat] = useState(lat);
+  // const [lon, setLon] = useState(lon);
 
-  componentDidMount() {
+  const setUsersCurrentLocation = (data) => {
+    const query = new URLSearchParams(window.location.search);
+    if (!query.get('lat') || !query.get('lon')) {
+      const url = new URL(window.location);
+      url.searchParams.set('place', 'Delhi');
+      url.searchParams.set('country', 'IN');
+      url.searchParams.set('lat', data.coords.latitude);
+      url.searchParams.set('lon', data.coords.longitude);
+      window.history.pushState({}, '', url);
+    }
+  };
+
+  useEffect(() => {
     getCurrentLocationDataFromUser(
-      this.setUsersCurrentLocation.bind(this),
-      this.setUsersCurrentLocation.bind(
-        this,
-        ...[{ coords: { latitude: 28.38, longitude: 77.12 } }],
-      ),
+      setUsersCurrentLocation,
+      setUsersCurrentLocation,
     );
-  }
+  }, []);
 
-  async setUsersCurrentLocation(data) {
-    this.setState((prevState) => ({
-      ...prevState,
-      loading: true,
-    }));
-    const weatherData = await getWeatherDataByLatLon(
-      data && data.coords.latitude,
-      data && data.coords.longitude,
-    );
+  return (
+    <div className="container">
+      <Router>
+        <div className="container__fix-components">
+          <Header>
+            <AutoComplete />
+          </Header>
+        </div>
 
-    if (Number(weatherData.cod) !== 200 || !weatherData) {
-      this.setWeatherErrorMessage(
-        weatherData.message || 'Something went wrong',
-      );
-      return;
-    }
+        <WeatherContainer />
 
-    const currentWeatherData = await getCurrentWeather(
-      data && data.coords.latitude,
-      data && data.coords.longitude,
-      undefined,
-      undefined,
-    );
-
-    if (Number(currentWeatherData.cod) !== 200 || !currentWeatherData) {
-      this.setForecastDataErrorMessage(
-        currentWeatherData.message || 'Something went wrong',
-      );
-      return;
-    }
-
-    this.setWeatherData(weatherData, currentWeatherData.list[0]);
-  }
-
-  setWeatherErrorMessage(message) {
-    this.setState((prevState) => ({
-      ...prevState,
-      weatherDataErrorMessage: message,
-      loading: false,
-    }));
-  }
-
-  setForecastDataErrorMessage(message) {
-    this.setState((prevState) => ({
-      ...prevState,
-      forecastDataErrorMessage: message,
-      loading: false,
-    }));
-  }
-
-  setWeatherData(foreCastData, currentData) {
-    this.setState((prevState) => ({
-      ...prevState,
-      city: currentData.name ? currentData.name : '',
-      country:
-          currentData.sys && currentData.sys.country
-            ? currentData.sys.country
-            : '',
-      todayWeather: currentData,
-      timezone: currentData.timezone ? currentData.timezone : 0,
-      forecasts: foreCastData.list,
-      searchResults: [],
-      loading: false,
-      weatherDataErrorMessage: '',
-      forecastDataErrorMessage: '',
-    }));
-  }
-
-  async searchForEnteredLocation(value) {
-    let searchResults;
-    if (Number.isSafeInteger(Number(value))) {
-      searchResults = await getCurrentWeather(
-        undefined,
-        undefined,
-        Number(value),
-        undefined,
-      );
-    } else {
-      searchResults = await getCurrentWeather(
-        undefined,
-        undefined,
-        undefined,
-        value,
-      );
-    }
-    this.setState((prevState) => ({
-      ...prevState,
-      searchResults: searchResults.list,
-    }));
-  }
-
-  render() {
-    const {
-      loading,
-      city,
-      country,
-      timezone,
-      todayWeather,
-      forecasts,
-      weatherDataErrorMessage,
-      forecastDataErrorMessage,
-    } = this.state;
-    return (
-      <div className="container">
-        <Router>
-          <div className="container__fix-components">
-            <Header>
-              <AutoComplete
-                handleSearchInput={(lat, lon) => this.setUsersCurrentLocation({
-                  coords: {
-                    latitude: lat,
-                    longitude: lon,
-                  },
-                })}
-              />
-            </Header>
-          </div>
-
-          <div className="container__content">
-            {loading ? (
-              <Loader />
-            ) : !weatherDataErrorMessage ? (
-              <>
-                <Weather
-                  city={city}
-                  country={country}
-                  timezone={timezone}
-                  iconType={todayWeather && todayWeather.weather[0].main}
-                  temp={todayWeather && todayWeather.main.temp}
-                />
-
-                <div className="container__other-params">
-                  <WeatherDetails
-                    humidity={
-                    todayWeather
-                    && todayWeather.main.humidity
-                  }
-                    pressure={
-                    todayWeather
-                    && todayWeather.main.pressure
-                  }
-                    rain={todayWeather && todayWeather.rain}
-                    wind={todayWeather && todayWeather.wind}
-                  />
-                </div>
-              </>
-            ) : (
-              <Error message={weatherDataErrorMessage} />
-            )}
-          </div>
-
-          <Forecast
-            error={forecastDataErrorMessage}
-            forecasts={forecasts}
-          />
-
-        </Router>
-      </div>
-    );
-  }
+        <ForecastContainer />
+      </Router>
+    </div>
+  );
 }
-
-export default Container;

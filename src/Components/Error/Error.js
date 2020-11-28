@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Error.css';
@@ -13,5 +14,5 @@ export default function Error({ message }) {
 }
 
 Error.propTypes = {
-  message: PropTypes.func.isRequired,
+  message: PropTypes.string.isRequired,
 };

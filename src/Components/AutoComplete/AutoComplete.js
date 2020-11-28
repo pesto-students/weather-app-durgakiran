@@ -58,7 +58,7 @@ function Suggestions({ inputValue, handleOnOptionSelect }) {
               display_name, address, lat, lon,
             } = result;
             return (
-              <li>
+              <li key={lat}>
                 <Link
                   onClick={() => handleOnOptionSelect()}
                   to={`?country=${address.country_code}&place=${address.name}&lat=${lat}&lon=${lon}`}

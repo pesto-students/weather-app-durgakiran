@@ -12,7 +12,7 @@ export function getCurrentLocationDataFromUser(fn, defaultFn) {
   return navigator.geolocation.getCurrentPosition(
     (data) => fn(data),
     () => {
-      defaultFn();
+      defaultFn({ coords: { latitude: 28.38, longitude: 77.12 } });
     },
   );
 }
@@ -56,10 +56,10 @@ export async function getWeatherDataByLatLon(lat, lon) {
   // return hardCodedWeatherJSON;
 }
 
-export async function getCurrentWeatherData(name, zip, lat, lon) {
+export async function getCurrentWeatherData(lat, lon) {
   try {
     const weatherByLatLon = await fetch(
-      `${baseUrl}currentWeather?lat=${lat}&lon=${lon}`,
+      `http://localhost:5001/weather-app-9d078/us-central1/searchLocation/currentWeather?lat=${lat}&lon=${lon}`,
     )
       .then((data) => data.json())
       .catch((data) => data.json());

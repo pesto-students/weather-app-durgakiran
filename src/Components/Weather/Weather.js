@@ -1,21 +1,11 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Location from '../Location/Location';
 import Time from '../Time/Time';
 import CurrentTemp from '../CurrentTemp/CurrentTemp';
 
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
-
 export default function Weather(props) {
-  const query = useQuery();
-
-  useEffect(() => {
-    console.log(query.get('lat'));
-  }, 1000);
-
   const {
     city,
     country,
