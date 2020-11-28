@@ -22,17 +22,19 @@ export default function CurrentWeather(props) {
   const [pressure, setPressure] = useState();
   const [rain, setRain] = useState();
   const [wind, setWind] = useState();
-  const [lat, setLat] = useState(28.38);
-  const [lon, setLon] = useState(77.12);
+  const [lat, setLat] = useState();
+  const [lon, setLon] = useState();
   const [timezone, setTimezone] = useState(19800);
 
-  const getWeatherData = async () => {
-    const currentData = await getCurrentWeatherData(lat, lon);
+  const getWeatherData = async (latitude, longitude) => {
+    const currentData = await getCurrentWeatherData(latitude, longitude);
     if (Number(currentData.cod) !== 200) {
       setError(currentData.message);
       setLoading(false);
     } else {
       try {
+        setCity(currentData.name);
+        setCountry(currentData.sys.country);
         if (currentData.timezone && currentData.dt) {
           setTimezone(currentData.timezone);
           setTime(currentData.dt);
@@ -58,11 +60,11 @@ export default function CurrentWeather(props) {
   useEffect(() => {
     setCity(newCity);
     setCountry(newCountry);
-    setLat(newLat);
-    setLon(newLon);
+    setLat(Number(props.newLat));
+    setLon(Number(props.newLon));
     setLoading(true);
     setError();
-    getWeatherData();
+    getWeatherData(props.newLat, props.newLon);
   }, [newCity, newCountry, newLat, newLon]);
 
   return (

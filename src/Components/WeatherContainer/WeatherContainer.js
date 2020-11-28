@@ -13,8 +13,8 @@ export default function WeatherContainer() {
       <CurrentWeather
         newCity={query.get('place') ? query.get('place') : 'Delhi'}
         newCountry={query.get('country') ? query.get('country') : 'IN'}
-        newLat={query.get('lat')}
-        newLon={query.get('lon')}
+        newLat={query.get('lat') ? query.get('lat') : 28.38}
+        newLon={query.get('lon') ? query.get('lon') : 77.12}
       />
     </div>
   );

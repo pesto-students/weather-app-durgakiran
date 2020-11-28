@@ -21,8 +21,9 @@ export default function Forecast({ lat, lon }) {
   useEffect(() => {
     const newLat = lat || 28.38;
     const newLon = lon || 77.12;
+    console.log(newLat, newLon);
     getWeatherData(newLat, newLon);
-  }, []);
+  }, [lat, lon]);
 
   return (
     <>

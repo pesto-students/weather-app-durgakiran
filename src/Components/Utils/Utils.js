@@ -59,7 +59,7 @@ export async function getWeatherDataByLatLon(lat, lon) {
 export async function getCurrentWeatherData(lat, lon) {
   try {
     const weatherByLatLon = await fetch(
-      `http://localhost:5001/weather-app-9d078/us-central1/searchLocation/currentWeather?lat=${lat}&lon=${lon}`,
+      `${baseUrl}currentWeather?lat=${lat}&lon=${lon}`,
     )
       .then((data) => data.json())
       .catch((data) => data.json());
