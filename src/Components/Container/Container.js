@@ -40,23 +40,23 @@ export default function Container() {
     );
   }, []);
 
-  // if (lat && lon) {
-  //   return (
-  //     <>
-  //       <Redirect to={`?lat=${lat}&lon=${lon}`} />
-  //       <div className="container">
-  //         <div className="container__fix-components">
-  //           <Header>
-  //             <AutoComplete />
-  //           </Header>
-  //         </div>
-  //         <WeatherContainer />
+  if (lat && lon) {
+    return (
+      <>
+        <Redirect to={`?lat=${lat}&lon=${lon}`} />
+        <div className="container">
+          <div className="container__fix-components">
+            <Header>
+              <AutoComplete />
+            </Header>
+          </div>
+          <WeatherContainer />
 
-  //         <ForecastContainer />
-  //       </div>
-  //     </>
-  //   );
-  // }
+          <ForecastContainer />
+        </div>
+      </>
+    );
+  }
 
   return (
     <div className="container">
