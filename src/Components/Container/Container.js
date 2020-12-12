@@ -7,6 +7,7 @@ import {
   BrowserRouter as Router,
   Redirect,
   Route,
+  useHistory,
 } from 'react-router-dom';
 import Header from '../Header/Header';
 import './Container.css';
@@ -21,11 +22,13 @@ export default function Container() {
   const [lon, setLon] = useState();
 
   const setUsersCurrentLocation = (data) => {
+    const history = useHistory();
     const query = new URLSearchParams(window.location.search);
     if (!query.get('lat') || !query.get('lon')) {
       setTimeout(() => {
         setLat(data.coords.latitude);
         setLon(data.coords.longitude);
+        history.push(`/?lat=${lat}&lon=${lon}`);
       }, 20);
     }
   };
@@ -37,23 +40,23 @@ export default function Container() {
     );
   }, []);
 
-  if (lat && lon) {
-    return (
-      <>
-        <Redirect to={`?lat=${lat}&lon=${lon}`} />
-        <div className="container">
-          <div className="container__fix-components">
-            <Header>
-              <AutoComplete />
-            </Header>
-          </div>
-          <WeatherContainer />
+  // if (lat && lon) {
+  //   return (
+  //     <>
+  //       <Redirect to={`?lat=${lat}&lon=${lon}`} />
+  //       <div className="container">
+  //         <div className="container__fix-components">
+  //           <Header>
+  //             <AutoComplete />
+  //           </Header>
+  //         </div>
+  //         <WeatherContainer />
 
-          <ForecastContainer />
-        </div>
-      </>
-    );
-  }
+  //         <ForecastContainer />
+  //       </div>
+  //     </>
+  //   );
+  // }
 
   return (
     <div className="container">
