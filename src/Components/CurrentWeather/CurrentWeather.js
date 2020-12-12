@@ -8,9 +8,7 @@ import WeatherDetails from '../WeatherDetails/WeatherDetails';
 import './CurrentWeather.css';
 
 export default function CurrentWeather(props) {
-  const {
-    newCity, newCountry, newLat, newLon,
-  } = props;
+  const { newLat, newLon } = props;
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
   const [city, setCity] = useState('Delhi');
@@ -22,8 +20,6 @@ export default function CurrentWeather(props) {
   const [pressure, setPressure] = useState();
   const [rain, setRain] = useState();
   const [wind, setWind] = useState();
-  const [lat, setLat] = useState();
-  const [lon, setLon] = useState();
   const [timezone, setTimezone] = useState(19800);
 
   const getWeatherData = async (latitude, longitude) => {
@@ -58,14 +54,10 @@ export default function CurrentWeather(props) {
   };
 
   useEffect(() => {
-    setCity(newCity);
-    setCountry(newCountry);
-    setLat(Number(props.newLat));
-    setLon(Number(props.newLon));
     setLoading(true);
     setError();
     getWeatherData(props.newLat, props.newLon);
-  }, [newCity, newCountry, newLat, newLon]);
+  }, [newLat, newLon]);
 
   return (
     <div className="container__content">

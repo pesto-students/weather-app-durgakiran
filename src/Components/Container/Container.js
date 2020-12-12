@@ -2,10 +2,12 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/prop-types */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   BrowserRouter as Router,
   Redirect,
+  Route,
+  useHistory,
 } from 'react-router-dom';
 import Header from '../Header/Header';
 import './Container.css';
@@ -16,18 +18,18 @@ import WeatherContainer from '../WeatherContainer/WeatherContainer';
 import ForecastContainer from '../ForecastContainer/ForeCastContainer';
 
 export default function Container() {
-  // const [lat, setLat] = useState(lat);
-  // const [lon, setLon] = useState(lon);
+  const [lat, setLat] = useState();
+  const [lon, setLon] = useState();
 
   const setUsersCurrentLocation = (data) => {
+    const history = useHistory();
     const query = new URLSearchParams(window.location.search);
     if (!query.get('lat') || !query.get('lon')) {
-      const url = new URL(window.location);
-      url.searchParams.set('place', 'Delhi');
-      url.searchParams.set('country', 'IN');
-      url.searchParams.set('lat', data.coords.latitude);
-      url.searchParams.set('lon', data.coords.longitude);
-      window.history.pushState({}, '', url);
+      setTimeout(() => {
+        setLat(data.coords.latitude);
+        setLon(data.coords.longitude);
+        history.push(`/?lat=${lat}&lon=${lon}`);
+      }, 20);
     }
   };
 
@@ -38,19 +40,34 @@ export default function Container() {
     );
   }, []);
 
+  // if (lat && lon) {
+  //   return (
+  //     <>
+  //       <Redirect to={`?lat=${lat}&lon=${lon}`} />
+  //       <div className="container">
+  //         <div className="container__fix-components">
+  //           <Header>
+  //             <AutoComplete />
+  //           </Header>
+  //         </div>
+  //         <WeatherContainer />
+
+  //         <ForecastContainer />
+  //       </div>
+  //     </>
+  //   );
+  // }
+
   return (
     <div className="container">
-      <Router>
-        <div className="container__fix-components">
-          <Header>
-            <AutoComplete />
-          </Header>
-        </div>
+      <div className="container__fix-components">
+        <Header>
+          <AutoComplete />
+        </Header>
+      </div>
+      <WeatherContainer />
 
-        <WeatherContainer />
-
-        <ForecastContainer />
-      </Router>
+      <ForecastContainer />
     </div>
   );
 }

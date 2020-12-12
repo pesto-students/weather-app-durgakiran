@@ -55,13 +55,13 @@ function Suggestions({ inputValue, handleOnOptionSelect }) {
           Array.isArray(suggestions)
           && suggestions.map((result) => {
             const {
-              display_name, address, lat, lon,
+              display_name, lat, lon,
             } = result;
             return (
               <li key={lat}>
                 <Link
                   onClick={() => handleOnOptionSelect()}
-                  to={`?country=${address.country_code}&place=${address.name}&lat=${lat}&lon=${lon}`}
+                  to={`?lat=${lat}&lon=${lon}`}
                 >
                   {`${display_name}`}
                 </Link>
