@@ -4,10 +4,7 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 import {
-  BrowserRouter as Router,
   Redirect,
-  Route,
-  useHistory,
 } from 'react-router-dom';
 import Header from '../Header/Header';
 import './Container.css';
@@ -22,13 +19,11 @@ export default function Container() {
   const [lon, setLon] = useState();
 
   const setUsersCurrentLocation = (data) => {
-    const history = useHistory();
     const query = new URLSearchParams(window.location.search);
     if (!query.get('lat') || !query.get('lon')) {
       setTimeout(() => {
         setLat(data.coords.latitude);
         setLon(data.coords.longitude);
-        history.push(`/?lat=${lat}&lon=${lon}`);
       }, 20);
     }
   };
